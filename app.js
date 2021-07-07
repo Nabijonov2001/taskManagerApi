@@ -63,6 +63,18 @@ app.put('/:id', (req, res)=>{
     })
 })
 
+app.delete("/:id", (req, res) => {
+    const { id } = req.params;
+  
+    pool.query("DELETE FROM issues WHERE id = $1", [id], (error, results) => {
+      if (error) {
+        throw error;
+      }
+  
+      res.sendStatus(200);
+    });
+  });
+
 app.listen(3000, (err, res)=>{
     if(!err){
         console.log('Server is listening on port 3000')
